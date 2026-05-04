@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleanRoute Waste Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="CleanRoute home">
+        <span class="brand-mark">CR</span>
+        <span>CleanRoute</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#track">Track Vehicle</a>
+        <a href="#report">Report Garbage</a>
+        <a href="#worker">Worker Dashboard</a>
+        <a href="#achievements">Achievements</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Smart civic waste management</p>
+          <h1>CleanRoute</h1>
+          <p>
+            Citizens can track garbage vehicles, report uncollected waste with
+            photo and location, and earn achievements for keeping their area
+            active and clean.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#report">Report garbage</a>
+            <a class="button secondary" href="#track">View live vehicle</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-label="Clean city status summary">
+          <div>
+            <span class="stat-value">18</span>
+            <span class="stat-label">reports resolved today</span>
+          </div>
+          <div>
+            <span class="stat-value">4</span>
+            <span class="stat-label">vehicles on route</span>
+          </div>
+          <div>
+            <span class="stat-value">92%</span>
+            <span class="stat-label">on-time collection</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="track">
+        <div class="section-heading">
+          <p class="eyebrow">GPS vehicle tracking</p>
+          <h2>Find the nearest garbage vehicle</h2>
+        </div>
+        <div class="tracking-layout">
+          <div class="map-shell">
+            <div class="map-grid" aria-hidden="true"></div>
+            <svg class="route-line" viewBox="0 0 600 360" role="img" aria-label="Vehicle route map">
+              <path d="M68 285 C145 222, 180 320, 260 235 S405 100, 535 82" />
+            </svg>
+            <button class="map-pin citizen-pin" type="button" aria-label="Your location">
+              <span>You</span>
+            </button>
+            <button class="map-pin vehicle-pin active" type="button" data-vehicle="0" aria-label="Vehicle CR-14">
+              <span>CR-14</span>
+            </button>
+            <button class="map-pin vehicle-pin" type="button" data-vehicle="1" aria-label="Vehicle CR-08">
+              <span>CR-08</span>
+            </button>
+            <button class="map-pin vehicle-pin" type="button" data-vehicle="2" aria-label="Vehicle CR-21">
+              <span>CR-21</span>
+            </button>
+          </div>
+          <aside class="vehicle-card" aria-live="polite">
+            <div class="vehicle-status">
+              <span class="live-dot"></span>
+              Live vehicle
+            </div>
+            <h3 id="vehicleName">Vehicle CR-14</h3>
+            <p id="vehicleArea">Near MG Road collection point</p>
+            <dl class="vehicle-details">
+              <div>
+                <dt>Arrival</dt>
+                <dd id="vehicleEta">8 min</dd>
+              </div>
+              <div>
+                <dt>Capacity</dt>
+                <dd id="vehicleCapacity">64%</dd>
+              </div>
+              <div>
+                <dt>Driver</dt>
+                <dd id="vehicleDriver">Ravi Kumar</dd>
+              </div>
+            </dl>
+            <button class="button primary full" id="locateMe" type="button">Use my location</button>
+            <p class="hint" id="locationHint">Demo mode: vehicle locations are sample data.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section split" id="report">
+        <div class="section-heading">
+          <p class="eyebrow">Citizen report</p>
+          <h2>Upload garbage photo and location</h2>
+          <p>
+            The form is ready for camera upload. In the final build, this would
+            send the photo, GPS coordinates, and complaint status to a database.
+          </p>
+        </div>
+        <form class="report-form" id="reportForm">
+          <label>
+            Full name
+            <input type="text" name="name" placeholder="Enter your name" required />
+          </label>
+          <label>
+            Area or landmark
+            <input type="text" name="area" placeholder="e.g. Sector 8 park gate" required />
+          </label>
+          <label>
+            Garbage type
+            <select name="type" required>
+              <option value="">Select type</option>
+              <option>Household waste</option>
+              <option>Plastic waste</option>
+              <option>Construction waste</option>
+              <option>Overflowing bin</option>
+            </select>
+          </label>
+          <label>
+            Upload photo
+            <input type="file" name="photo" accept="image/*" capture="environment" />
+          </label>
+          <label class="wide">
+            Description
+            <textarea name="description" placeholder="Describe the issue in one or two lines"></textarea>
+          </label>
+          <div class="form-actions wide">
+            <button class="button secondary" id="getReportLocation" type="button">Add GPS location</button>
+            <button class="button primary" type="submit">Submit report</button>
+          </div>
+          <p class="form-message wide" id="formMessage"></p>
+        </form>
+      </section>
+
+      <section class="section" id="worker">
+        <div class="section-heading">
+          <p class="eyebrow">Worker dashboard</p>
+          <h2>Reports waiting for collection</h2>
+        </div>
+        <div class="reports-grid" id="reportsGrid"></div>
+      </section>
+
+      <section class="section achievements" id="achievements">
+        <div class="section-heading">
+          <p class="eyebrow">Citizen achievements</p>
+          <h2>Keep people active with rewards</h2>
+        </div>
+        <div class="achievement-grid">
+          <article class="achievement-card unlocked">
+            <span class="badge">1</span>
+            <h3>First Reporter</h3>
+            <p>Submit the first verified garbage report.</p>
+          </article>
+          <article class="achievement-card unlocked">
+            <span class="badge">5</span>
+            <h3>Clean Street Helper</h3>
+            <p>Help resolve five reports in your area.</p>
+          </article>
+          <article class="achievement-card">
+            <span class="badge">10</span>
+            <h3>Community Champion</h3>
+            <p>Reach ten verified cleanliness actions.</p>
+          </article>
+          <article class="achievement-card">
+            <span class="badge">30</span>
+            <h3>Monthly Hero</h3>
+            <p>Stay active for a full month of civic reporting.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>CleanRoute prototype for smart waste management.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
